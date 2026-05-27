@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Krishma Awards 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #FDF8F0;
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow-x: hidden;
+    color: #2C1810;
+  }
+
+  /* confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    pointer-events: none;
+    animation: confettiFall linear infinite;
+    z-index: 0;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  .page { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+
+  /* header */
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+  .header { text-align: center; margin-bottom: 3rem; animation: fadeUp 0.7s ease forwards; }
+  .header-badge {
+    display: inline-block;
+    background: #E8C57A;
+    color: #5C3D00;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #2C1810;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 15px;
+    color: #8C6B55;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.15s ease forwards;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: #D4A96A; }
+  .divider-star { color: #D4A96A; font-size: 14px; }
+
+  /* awards grid */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 640px) { .awards-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 400px) { .awards-grid { grid-template-columns: 1fr; } }
+
+  .award-card {
+    background: #fff;
+    border: 0.5px solid #E8D5B8;
+    border-radius: 16px;
+    padding: 1.5rem 1rem 1.25rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .award-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(180,130,60,0.12);
+  }
+
+  .trophy-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+  .award-category {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #B07D45;
+    margin-bottom: 8px;
+  }
+  .award-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: #2C1810;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .winner-pill {
+    display: inline-block;
+    background: #FDF0DC;
+    color: #7A4F1A;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 12px;
+    border-radius: 20px;
+    border: 0.5px solid #E8C57A;
+  }
+
+  /* grand prize */
+  .grand-card {
+    background: linear-gradient(135deg, #F9EDD4 0%, #FDF5E6 100%);
+    border: 1px solid #E8C57A;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s ease forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  .grand-card::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(232,197,122,0.2);
+    border-radius: 50%;
+  }
+  .grand-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: -20px;
+    width: 80px; height: 80px;
+    background: rgba(232,197,122,0.15);
+    border-radius: 50%;
+  }
+  .grand-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #B07D45;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .grand-trophy { font-size: 48px; display: block; margin-bottom: 10px; }
+  .grand-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #2C1810;
+    margin-bottom: 10px;
+  }
+  .grand-sub {
+    font-size: 13px;
+    color: #8C6B55;
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .grand-winner {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #7A4F1A;
+  }
+
+  /* speech */
+  .speech {
+    background: #fff;
+    border: 0.5px solid #E8D5B8;
+    border-left: 3px solid #E8C57A;
+    border-radius: 12px;
+    padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 1s ease forwards;
+  }
+  .speech-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #B07D45;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .speech-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #3D2010;
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* footer */
+  .footer {
+    text-align: center;
+    font-size: 14px;
+    color: #8C6B55;
+    opacity: 0;
+    animation: fadeUp 0.7s 1.2s ease forwards;
+  }
+  .footer strong { color: #2C1810; font-weight: 500; }
+
+  /* heart */
+  @keyframes heartbeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+  .heart { display: inline-block; color: #D4627A; animation: heartbeat 1.2s ease infinite; margin: 0 2px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <div class="header-badge">Official Award Ceremony</div>
+    <h1>The Krishma Awards 2025</h1>
+    <p>A prestigious celebration of extraordinary excellence</p>
+  </header>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-star">✦</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="awards-grid">
+    <div class="award-card" style="animation-delay:0.1s">
+      <span class="trophy-icon">🏆</span>
+      <div class="award-category">Category: Appearance</div>
+      <div class="award-name">Most Beautiful Human On Planet Earth</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+    <div class="award-card" style="animation-delay:0.2s">
+      <span class="trophy-icon">🥇</span>
+      <div class="award-category">Category: Facial Expression</div>
+      <div class="award-name">Best Smile in the Entire Universe</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+    <div class="award-card" style="animation-delay:0.3s">
+      <span class="trophy-icon">🎖️</span>
+      <div class="award-category">Category: Culpability</div>
+      <div class="award-name">Professional Heart Thief (No Bail)</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+    <div class="award-card" style="animation-delay:0.4s">
+      <span class="trophy-icon">🏅</span>
+      <div class="award-category">Category: Cozy Vibes</div>
+      <div class="award-name">Warmest Hugs Per Square Second</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+    <div class="award-card" style="animation-delay:0.5s">
+      <span class="trophy-icon">⭐</span>
+      <div class="award-category">Category: Distraction</div>
+      <div class="award-name">Most Distracting Person to be Around</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+    <div class="award-card" style="animation-delay:0.6s">
+      <span class="trophy-icon">🎗️</span>
+      <div class="award-category">Category: Emotional Support</div>
+      <div class="award-name">Lifetime Achievement: Making Everything Better</div>
+      <div class="winner-pill">Krishma Paudel</div>
+    </div>
+  </div>
+
+  <div class="grand-card">
+    <div class="grand-label">Grand Prize — All Categories Combined</div>
+    <span class="grand-trophy">👑</span>
+    <div class="grand-title">The One Who Has It All Award</div>
+    <div class="grand-sub">Presented to the most exceptional person in Rohit's life,<br>unanimously, every year, forever.</div>
+    <div class="grand-winner">Krishma Paudel</div>
+  </div>
+
+  <div class="speech">
+    <div class="speech-label">Acceptance Speech (on her behalf)</div>
+    <p class="speech-text">"I'd like to thank my boyfriend, who somehow manages to love me even more than I find reasonable. I accept all these awards graciously. Yes, all of them. I deserved every single one."</p>
+  </div>
+
+  <div class="footer">
+    Happy Birthday, <strong>Meri Pyari bb</strong> <span class="heart">♥</span> from your Guiye, with love.
+  </div>
+
+</div>
+
+<script>
+  const colors = ['#FAC775','#F4C0D1','#9FE1CB','#B5D4F4','#C0DD97','#F5C4B3','#E8C57A'];
+  for (let i = 0; i < 22; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: -12px;
+      background: ${colors[i % colors.length]};
+      animation-duration: ${2.8 + Math.random() * 2.5}s;
+      animation-delay: ${Math.random() * 4}s;
+      transform: rotate(${Math.random() * 360}deg);
+      width: ${6 + Math.random() * 6}px;
+      height: ${6 + Math.random() * 6}px;
+    `;
+    document.body.appendChild(c);
+  }
+</script>
+</body>
+</html>
